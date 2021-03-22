@@ -18,18 +18,14 @@ import {
 
 import { Header } from './src/Components/Header/index';
 import { Photo } from './src/Components/Photo/index';
+import readPhotos from './src/api/feed'
 
 
 const App = () => {
   const [photos, setPhotos] = useState([]);
+  
   useEffect(() => {
-    const readPhotos = async() => {
-      const photosHTTP = await fetch('http://192.168.1.10:3030/feed');
-      const photosJSON = await photosHTTP.json();
-      setPhotos(photosJSON);
-    }
-
-    readPhotos();
+    readPhotos(setPhotos);
   }, []);
 
   return (
@@ -39,8 +35,14 @@ const App = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item })=> 
           <Fragment>
-          <Header userName={item.userName} />
-          <Photo />
+          <Header 
+          userName={item.userName} 
+          urlImage={item.userURL}
+          />
+          <Photo 
+          urlPhoto={item.url}
+          description={item.description}
+          />
           </Fragment>
         }
       />

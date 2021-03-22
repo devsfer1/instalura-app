@@ -7,6 +7,12 @@ const estilo = StyleSheet.create({
     width: largura,
     height: largura
   }
+  ,
+  like: {
+    width: 40,
+    height: 40,
+    margin: 5 
+  }
 });
 
 export default estilo;
