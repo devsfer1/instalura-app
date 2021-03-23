@@ -1,11 +1,23 @@
-import React, {Fragment} from 'react';
+import React, { Fragment, useState } from 'react';
 import { 
-    Image, Text
+    Image, Text, TouchableOpacity, View
 } from 'react-native';
 
 import estilo from './style'
 
-const Photo = ({ urlPhoto, description }) => {
+const Photo = ({ urlPhoto, description, likeAmount }) => {
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(likeAmount)
+
+  const likePhoto = () => {
+    if(liked) {
+
+      setLikes(likes - 1);
+    } else {
+      setLikes(likes + 1);
+    }
+    setLiked(!liked)
+  }
    return (
      <Fragment>
        <Image 
@@ -13,17 +25,21 @@ const Photo = ({ urlPhoto, description }) => {
         style={estilo.imagem}
       />
       <Text>{ description }</Text>
-      <Image 
-      source={catchLikeImg(0)} 
-      style={estilo.like}
-      />
+      <View style={estilo.viewLike}>
+        <TouchableOpacity onPress={likePhoto}>
+          <Image 
+          source={LikeImg(liked)} 
+          style={estilo.like}
+          />
+        </TouchableOpacity>
+        <Text>Curtidas { likes }</Text>
+      </View>
      </Fragment>
-      
    );
 }; 
 
-const catchLikeImg = (amountOfLikes) => {
-  if(amountOfLikes > 0) {
+const LikeImg = (liked) => {
+  if(liked) {
     return require('../../../res/img/s2-checked.png');
   } else {
     return require('../../../res/img/s2.png');

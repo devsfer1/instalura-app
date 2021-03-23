@@ -12,6 +12,10 @@ const estilo = StyleSheet.create({
     width: 40,
     height: 40,
     margin: 5 
+  },
+  viewLike: {
+    flexDirection: "row",
+    alignItems: "center"
   }
 });
 
