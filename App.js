@@ -18,7 +18,8 @@ import {
 
 import { Header } from './src/Components/Header/index';
 import { Photo } from './src/Components/Photo/index';
-import readPhotos from './src/api/feed'
+import { Comments } from './src/Components/Comments/index';
+import readPhotos from './src/api/feed'; 
 
 
 const App = () => {
@@ -35,15 +36,16 @@ const App = () => {
         keyExtractor={(item) => item.id.toString()}
         renderItem={({ item })=> 
           <Fragment>
-          <Header 
-          userName={item.userName} 
-          urlImage={item.userURL}
-          />
-          <Photo 
-          urlPhoto={item.url}
-          description={item.description}
-          likeAmount={item.likes}
-          />
+            <Header 
+              userName={item.userName} 
+              urlImage={item.userURL}
+            />
+            <Photo 
+              urlPhoto={item.url}
+              description={item.description}
+              likeAmount={item.likes}
+            />
+            <Comments comments={item.comentarios}/>
           </Fragment>
         }
       />

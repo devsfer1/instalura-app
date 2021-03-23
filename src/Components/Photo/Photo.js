@@ -3,20 +3,18 @@ import {
     Image, Text, TouchableOpacity, View
 } from 'react-native';
 
+import { likePhoto, likeImg } from '../../api/likes';
+
 import estilo from './style'
 
 const Photo = ({ urlPhoto, description, likeAmount }) => {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(likeAmount)
 
-  const likePhoto = () => {
-    if(liked) {
-
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
-    setLiked(!liked)
+  const clickedLike = () => {
+    const [newStateliked, qnt] = likePhoto(liked, likes)
+    setLikes(qnt)
+    setLiked(newStateliked)
   }
    return (
      <Fragment>
@@ -26,9 +24,9 @@ const Photo = ({ urlPhoto, description, likeAmount }) => {
       />
       <Text>{ description }</Text>
       <View style={estilo.viewLike}>
-        <TouchableOpacity onPress={likePhoto}>
+        <TouchableOpacity onPress={clickedLike}>
           <Image 
-          source={LikeImg(liked)} 
+          source={likeImg(liked)} 
           style={estilo.like}
           />
         </TouchableOpacity>
@@ -37,14 +35,6 @@ const Photo = ({ urlPhoto, description, likeAmount }) => {
      </Fragment>
    );
 }; 
-
-const LikeImg = (liked) => {
-  if(liked) {
-    return require('../../../res/img/s2-checked.png');
-  } else {
-    return require('../../../res/img/s2.png');
-  }
-}
  
 export default Photo;
  
